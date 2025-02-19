@@ -14,9 +14,7 @@ const client: AxiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const searchCompaniesByTicker = async (
-  searchQuery: SearchQuery
-): Promise<SearchResponse | string> => {
+const searchCompaniesByTicker = async (searchQuery: SearchQuery) => {
   try {
     const { query, limit, exchange } = searchQuery;
     const result = await client

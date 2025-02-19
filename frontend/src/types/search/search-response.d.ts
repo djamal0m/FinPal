@@ -1,3 +1,1 @@
-export interface SearchResponse {
-  data: CompanySearch[];
-}
+export type SearchResponse = CompanySearch[];
