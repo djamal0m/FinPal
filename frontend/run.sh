@@ -35,7 +35,7 @@ if container_exists; then
     docker start ${CONTAINER_NAME} > /dev/null 2>&1
   fi
 else
-  echo "🚧 No container named '${CONTAINER_NAME}' found. Building and running..."
+  echo "No container named '${CONTAINER_NAME}' found. Building and running..."
   
   # build image
   docker build -t ${IMAGE_NAME} .
@@ -53,5 +53,5 @@ echo -e "Following logs for container '${CONTAINER_NAME}'...\n"
 docker logs -f --since "$CURRENT_TIME" ${CONTAINER_NAME} & LOGS_PID=$!
 
 # stop container on exit (ex: ctrl+c)
-trap "echo -e '\n🛑 Stopping container ${CONTAINER_NAME}...'; docker stop ${CONTAINER_NAME} > /dev/null 2>&1; kill ${LOGS_PID} 2>/dev/null; exit 0" SIGINT
+trap "echo -e '\nStopping container ${CONTAINER_NAME}...'; docker stop ${CONTAINER_NAME} > /dev/null 2>&1; kill ${LOGS_PID} 2>/dev/null; exit 0" SIGINT
 wait ${LOGS_PID}
