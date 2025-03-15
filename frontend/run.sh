@@ -5,20 +5,20 @@ CONTAINER_NAME="finpal-container"
 HOST_PORT=3000
 CONTAINER_PORT=3000
 
-# check if Docker is running
+# check if docker engine running
 check_docker() {
   if ! docker info >/dev/null 2>&1; then
-    echo "❌ Docker is not running! Please start Docker and try again."
+    echo "Docker is not running! Please start Docker and try again."
     exit 1
   fi
 }
 
-# check if a container exists
+# check if container exists
 container_exists() {
   [ -n "$(docker ps -aq -f name=^/${CONTAINER_NAME}$)" ]
 }
 
-# check if a container is running
+# check if container is running
 container_running() {
   [ -n "$(docker ps -q -f name=^/${CONTAINER_NAME}$)" ]
 }
@@ -26,12 +26,12 @@ container_running() {
 check_docker
 
 if container_exists; then
-  echo "✅ Container '${CONTAINER_NAME}' exists."
+  echo -e "\nContainer '${CONTAINER_NAME}' exists."
   
   if container_running; then
-    echo "🚀 Container '${CONTAINER_NAME}' is already running on port ${HOST_PORT}."
+    echo "Container '${CONTAINER_NAME}' is already running on port ${HOST_PORT}."
   else
-    echo "🔄 Starting existing container '${CONTAINER_NAME}'..."
+    echo "Starting existing container '${CONTAINER_NAME}'..."
     docker start ${CONTAINER_NAME} > /dev/null 2>&1
   fi
 else
@@ -47,9 +47,9 @@ fi
 # get current time
 CURRENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-echo -e "📜 Following logs for container '${CONTAINER_NAME}'...\n"
+echo -e "Following logs for container '${CONTAINER_NAME}'...\n"
 
-# follow logs from the captured time
+# follow logs since current time
 docker logs -f --since "$CURRENT_TIME" ${CONTAINER_NAME} & LOGS_PID=$!
 
 # stop container on exit (ex: ctrl+c)
