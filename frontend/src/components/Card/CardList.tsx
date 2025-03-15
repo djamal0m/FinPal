@@ -4,14 +4,22 @@ import Card from "./Card";
 
 type Props = {
   companies: CompanySearch[];
+  onAddToPortfolio: (company: CompanySearch) => void;
 };
 
-const CardList = ({ companies }: Props) => {
+const CardList = ({
+  companies,
+  onAddToPortfolio: handleAddToPortfolio,
+}: Props) => {
   return (
     <div>
       {companies.length > 0 ? (
         companies.map((company) => (
-          <Card key={company.symbol} company={company} />
+          <Card
+            company={company}
+            key={company.symbol}
+            handleAddToPortfolio={handleAddToPortfolio}
+          />
         ))
       ) : (
         <div>no data to display</div>

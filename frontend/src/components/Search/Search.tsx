@@ -1,16 +1,18 @@
 import React, { ChangeEvent, MouseEvent } from "react";
 
 type Props = {
-  handleClick: (e: MouseEvent<HTMLButtonElement>) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  query: string;
+  onSearchSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
+  onSearchQueryChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Search = ({ handleChange, handleClick, query }: Props) => {
+const Search = ({
+  onSearchQueryChange: handleSearchChange,
+  onSearchSubmit: handleSearchSubmit,
+}: Props) => {
   return (
     <div>
-      <input type="text" onChange={(e) => handleChange(e)} />
-      <button onClick={(e) => handleClick(e)}>Search</button>
+      <input type="text" onChange={(e) => handleSearchChange(e)} />
+      <button onClick={(e) => handleSearchSubmit(e)}>Search</button>
     </div>
   );
 };
